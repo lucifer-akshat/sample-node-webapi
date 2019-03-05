@@ -6,7 +6,7 @@ var session = require('express-session');
 var Mongostore = require('connect-mongo')(session);
 
 //connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/testForAuth', { useMongoClient: true });
+mongoose.connect('mongodb://localhost:27017/testFor', { useMongoClient: true });
 var db = mongoose.connection;
 
 
