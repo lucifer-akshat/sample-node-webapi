@@ -145,16 +145,7 @@ var registerController = require('../controllers/registrationController');
 
 router.post('/register', registerController.register);
 
-router.get('/getAllRecords', function (req, res) {
-    User.find()
-        .then(function (response) {
-            console.log(response);
-            return res.send(response);
-        })
-        .catch(function (err) {
-            console.log(err);
-        })
-});
+router.get('/getAllRecords', registerController.fetchRecords);
 
 router.post('/login', function (req, res) {
    User.findOne({username: req.body.username})

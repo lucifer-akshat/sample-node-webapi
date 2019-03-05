@@ -11,3 +11,14 @@ exports.register = function (req, res) {
         })
 
 };
+
+exports.fetchRecords = function (req, res) {
+    registrationService
+        .fetchRecords(req.body)
+        .then(function (result) {
+            res.send(result);
+        })
+        .catch(function (err) {
+            res.send(err);
+        })
+}

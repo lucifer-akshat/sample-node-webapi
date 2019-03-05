@@ -47,7 +47,26 @@ function registerUser(user) {
     })
 }
 
+function fetchRecords() {
+    return new Promise(function (resolve, reject) {
+        User.find()
+            .then(function (data) {
+                return resolve({
+                    message:"Fetched All Records",
+                    data:data,
+                    code:200
+                })
+            })
+            .catch(function (err) {
+                return reject({
+                    message:"Unable to fetch records"
+                })
+            })
+    })
+}
+
 module.exports = {
     registerUser,
-    verifyEmailUniqueness
-}
+    verifyEmailUniqueness,
+    fetchRecords
+};
