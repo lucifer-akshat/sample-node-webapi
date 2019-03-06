@@ -2,6 +2,9 @@ var express = require('express');
 // var mongoose = require('mongoose');
 var router = express.Router();
 var User = require('../models/user');
+var bcrypt = require('bcrypt');
+var registerController = require('../controllers/registrationController');
+var searchController = require('../controllers/searchController');
 // var User = mongoose.model('Users');
 
 //GET route for reading data
@@ -85,44 +88,71 @@ var User = require('../models/user');
 //     }
 // });
 
-router.post('/register', function (req, res) {
-    console.log("coming here")
-    var userData = {
-        username: req.body.username,
-        email: req.body.email,
-        password: req.body.password
-    }
-    var user = new User(userData);
-    user.save(function (error) {
-        console.log(user);
-        if(error) {
-            throw error;
-        }
-        res.json({
-            data: user,
-            message: "Data saved successfully",
-            status: "Success"
-        })
-    })
-});
-
-router.get('/getAllRecords', function (req, res) {
-    User.find()
-        .then(function (response) {
-            console.log(response);
-            return res.send(response);
-        })
-        .catch(function (err) {
-            console.log(err);
-        })
-});
-
-// router.post('/login', function (req, res) {
-//    User.findOne({username: req.body.username})
-//        .then(function (response) {
-//
-//        })
+// router.post('/register', function (req, res) {
+//     function registration() {
+//         return new Promise(function (resolve, reject) {
+//             console.log('coming here');
+//             var userData = {
+//                 username: req.body.username,
+//                 email: req.body.email,
+//                 password: req.body.password
+//             };
+//             bcrypt.hash(req.body.password, 10, function (error, hash) {
+//                 if(error) {
+//                     return;
+//                 }
+//                 console.log(hash);
+//                 userData.password = hash;
+//             });
+//             var user = new User(userData);
+//             user.save()
+//             //     function (error, response) {
+//             //     console.log(response, 'response');
+//             //     console.log(error, 'error');
+//             //     console.log(user);
+//             //     if(error) {
+//             //         return reject(error);
+//             //     } else {
+//             //         return resolve(response);
+//             //     }
+//             // })
+//                 .then(function (response) {
+//                     console.log(response);
+//                 })
+//                 .catch(function (err) {
+//                     console.log(err, 'in catch');
+//                 })
+//         })
+//     }
+//     if(req.body.username && req.body.email && req.body.password){
+//         registration().then(function (data) {
+//             res.json({
+//                 data: data,
+//                 message: "User Succesfully added",
+//                 status: "Success"
+//             })
+//         })
+//             .catch(function (err) {
+//                 res.json({
+//                     error: err
+//                 })
+//             })
+//     } else {
+//         res.json({
+//             message: "Unproccessible request",
+//         })
+//     }
 // });
+
+router.post('/register', registerController.register);
+
+router.get('/getAllRecords', registerController.fetchRecords);
+
+router.post('/login', registerController.login);
+
+router.get('/search', searchController.searchUser);
+
+
 
 
 module.exports = router;
