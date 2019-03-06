@@ -4,6 +4,7 @@ var router = express.Router();
 var User = require('../models/user');
 var bcrypt = require('bcrypt');
 var registerController = require('../controllers/registrationController');
+var searchController = require('../controllers/searchController');
 // var User = mongoose.model('Users');
 
 //GET route for reading data
@@ -148,6 +149,8 @@ router.post('/register', registerController.register);
 router.get('/getAllRecords', registerController.fetchRecords);
 
 router.post('/login', registerController.login);
+
+router.get('/search', searchController.searchUser);
 
 
 
