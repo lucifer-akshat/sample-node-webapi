@@ -147,24 +147,7 @@ router.post('/register', registerController.register);
 
 router.get('/getAllRecords', registerController.fetchRecords);
 
-router.post('/login', function (req, res) {
-   User.findOne({username: req.body.username})
-       .then(function (response) {
-           console.log(req.body);
-            if(response === null) {
-                return res.json({
-                    message: "User not found"
-                })
-            } else {
-                if(response.username === req.body.username) {
-                    return res.json({
-                        message:"Login successful"
-                    })
-                }
-            }
-
-       })
-});
+router.post('/login', registerController.login);
 
 
 
