@@ -3,8 +3,6 @@ var User = require('../models/user');
 function searchUser(request) {
     console.log(request.searchTerm, 'request');
     return new Promise(function (resolve, reject) {
-            // User. ({username:"text"});
-            // console.log(indexName, 'indexName');
             User.find({
                 username:request.searchTerm
             })
