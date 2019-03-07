@@ -24,6 +24,12 @@ function verifyEmailUniqueness(user) {
 
 function registerUser(user) {
     return new Promise(function (resolve, reject) {
+        if(!user.username || !user.email || !user.password) {
+            return resolve({
+                message: "Unproccessible Entity",
+                code:400
+            })
+        }
         verifyEmailUniqueness(user)
             .then(function (user) {
                 var userData = new User(user);
