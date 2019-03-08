@@ -143,9 +143,29 @@ function login(request) {
     })
 }
 
+function removeUser(deleteUsername) {
+    return new Promise(function (resolve, reject) {
+        User.deleteOne({username: deleteUsername.username})
+            .then(function (result) {
+                return resolve({
+                    message:"User is deleted",
+                    code:200,
+                    result:result
+                })
+            })
+            .catch(function (err) {
+                return resolve({
+                    message:"Unable to delete particular user",
+                    error:err
+                })
+            })
+    })
+}
+
 module.exports = {
     registerUser,
     verifyEmailUniqueness,
     fetchRecords,
-    login
+    login,
+    removeUser
 };
