@@ -1,5 +1,8 @@
 var User = require('../models/user');
 var bcrypt = require('bcrypt');
+var jwt = require('jsonwebtoken');
+var config = require('../config/jwtSecret');
+var secret = config.secret;
 
 function verifyEmailUniqueness(user) {
     return new Promise(function (resolve, reject) {
@@ -112,10 +115,9 @@ function login(request) {
                                     message:"Unable to login the user"
                                 })
                             } else if(response) {
-                                return resolve({
-                                    message:"Login Successful",
-                                    data:users
-                                })
+                                //Create JSON Web Token
+                                console.log(users, 'user details');
+                                return resolve(createAuthenticatedWebToken(users));
                             } else {
                                 return resolve({
                                     message:"Invalid credentials"
@@ -141,6 +143,28 @@ function login(request) {
                })
             })
     })
+}
+
+function createAuthenticatedWebToken(userDetails) {
+     var data = {};
+     data.id = userDetails._id;
+     data.username = userDetails.username;
+     data.email = userDetails.email;
+     data.token = createJsonWebToken(userDetails);
+
+     return data;
+}
+
+function createJsonWebToken(userDetails) {
+    var options = {
+        expiresIn: 86400
+    };
+
+    var payload = {
+        userInfo: userDetails._id
+    };
+
+    return jwt.sign(payload, secret, options);
 }
 
 function removeUser(deleteUsername) {
