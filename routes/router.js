@@ -1,8 +1,6 @@
 var express = require('express');
 // var mongoose = require('mongoose');
 var router = express.Router();
-var User = require('../models/user');
-var bcrypt = require('bcrypt');
 var registerController = require('../controllers/registrationController');
 var searchController = require('../controllers/searchController');
 // var User = mongoose.model('Users');
@@ -151,6 +149,8 @@ router.get('/getAllRecords', registerController.fetchRecords);
 router.post('/login', registerController.login);
 
 router.get('/search', searchController.searchUser);
+
+router.delete('/removeUser', registerController.removeUser);
 
 
 
