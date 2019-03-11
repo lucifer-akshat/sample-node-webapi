@@ -2,7 +2,7 @@ var registrationService = require('../services/registrationService');
 
 exports.register = function (req, res) {
     registrationService
-        .registerUser(req.body)
+        .registerUser(req)
         .then(function (result) {
             res.send(result)
         })
@@ -14,7 +14,7 @@ exports.register = function (req, res) {
 
 exports.fetchRecords = function (req, res) {
     registrationService
-        .fetchRecords(req.body)
+        .fetchRecords(req)
         .then(function (result) {
             res.send(result);
         })

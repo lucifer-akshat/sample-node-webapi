@@ -24,8 +24,24 @@ function verifyEmailUniqueness(user) {
     })
 }
 
+function authenticateUser(request) {
+    return new Promise(function (resolve, reject) {
+        console.log(secret);
+        jwt.verify(request.headers.authorization, secret, function (error, decoded) {
+            if(error) {
+                return reject({
+                    message: "Token expired"
+                })
+            } else {
+                return resolve(decoded);
+            }
+        });
+    })
+}
 
-function registerUser(user) {
+
+function registerUser(request) {
+    var user = request.body;
     return new Promise(function (resolve, reject) {
         if(!user.username || !user.email || !user.password) {
             return resolve({
@@ -68,21 +84,31 @@ function registerUser(user) {
     })
 }
 
-function fetchRecords() {
+function fetchRecords(request) {
     return new Promise(function (resolve, reject) {
-        User.find()
-            .then(function (data) {
+        authenticateUser(request)
+            .then(function (result) {
+                console.log(result, 'result');
+                User.find()
+                    .then(function (data) {
+                        return resolve({
+                            message:"Fetched All Records",
+                            data:data,
+                            code:200
+                        })
+                    })
+                    .catch(function (err) {
+                        return reject({
+                            message:"Unable to fetch records"
+                        })
+                    })
+            })
+            .catch(function (error) {
                 return resolve({
-                    message:"Fetched All Records",
-                    data:data,
-                    code:200
+                    message: "Not authorized to fetch records."
                 })
             })
-            .catch(function (err) {
-                return reject({
-                    message:"Unable to fetch records"
-                })
-            })
+
     })
 }
 
