@@ -1,4 +1,5 @@
 var User = require('../models/user');
+var LoginModel = require('../models/loginModel');
 var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 var config = require('../config/jwtSecret');
@@ -26,11 +27,11 @@ function verifyEmailUniqueness(user) {
 
 function authenticateUser(request) {
     return new Promise(function (resolve, reject) {
-        console.log(secret);
         jwt.verify(request.headers.authorization, secret, function (error, decoded) {
             if(error) {
                 return reject({
-                    message: "Token expired"
+                    message: "Token expired",
+                    error:error
                 })
             } else {
                 return resolve(decoded);
@@ -178,7 +179,15 @@ function createAuthenticatedWebToken(userDetails) {
      data.email = userDetails.email;
      data.token = createJsonWebToken(userDetails);
 
-     return data;
+     var loginUser = new LoginModel(data);
+
+     loginUser.save()
+         .then(function (result) {
+             return data;
+         })
+         .catch(function (error) {
+             return error
+         });
 }
 
 function createJsonWebToken(userDetails) {
@@ -214,7 +223,6 @@ function removeUser(deleteUsername) {
 
 module.exports = {
     registerUser,
-    verifyEmailUniqueness,
     fetchRecords,
     login,
     removeUser
