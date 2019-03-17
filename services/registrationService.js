@@ -173,21 +173,27 @@ function login(request) {
 }
 
 function createAuthenticatedWebToken(userDetails) {
-     var data = {};
-     data.id = userDetails._id;
-     data.username = userDetails.username;
-     data.email = userDetails.email;
-     data.token = createJsonWebToken(userDetails);
+    return new Promise(function (resolve, reject) {
+        var data = {};
+        data.id = userDetails._id;
+        data.username = userDetails.username;
+        data.email = userDetails.email;
+        data.token = createJsonWebToken(userDetails);
 
-     var loginUser = new LoginModel(data);
+        var loginUser = new LoginModel(data);
 
-     loginUser.save()
-         .then(function (result) {
-             return data;
-         })
-         .catch(function (error) {
-             return error
-         });
+        loginUser.save()
+            .then(function (result) {
+                return resolve({
+                    data: data
+                });
+            })
+            .catch(function (error) {
+                return reject({
+                    error:error
+                })
+            });
+    });
 }
 
 function createJsonWebToken(userDetails) {
@@ -221,9 +227,37 @@ function removeUser(deleteUsername) {
     })
 }
 
+function fetchAllLoginUsers(request) {
+    return new Promise(function (resolve, reject) {
+        authenticateUser(request)
+            .then(function (result) {
+                LoginModel.find()
+                    .then(function (loginUsers) {
+                        return resolve({
+                            message: "Fetched all login users",
+                            data: loginUsers
+                        })
+                    })
+                    .catch(function (error) {
+                        return resolve({
+                            message: "Unable to fetch the login users",
+                            error: error
+                        })
+                    })
+            })
+            .catch(function (error) {
+                return reject({
+                    message: "Unable to authenticate the user",
+                    error: error
+                })
+            })
+    })
+}
+
 module.exports = {
     registerUser,
     fetchRecords,
     login,
-    removeUser
+    removeUser,
+    fetchAllLoginUsers
 };
