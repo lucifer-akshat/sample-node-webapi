@@ -45,3 +45,14 @@ exports.login = function (req, res) {
             res.send(err);
         })
 };
+
+exports.fetchLoginUsers = function (req, res) {
+    registrationService
+        .fetchAllLoginUsers(req)
+        .then(function (result) {
+            res.send(result);
+        })
+        .catch(function (err) {
+            res.send(err);
+        })
+};

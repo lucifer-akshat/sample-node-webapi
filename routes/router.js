@@ -152,6 +152,8 @@ router.get('/search', searchController.searchUser);
 
 router.delete('/removeUser', registerController.removeUser);
 
+router.get('/loginUsers', registerController.fetchLoginUsers);
+
 
 
 
