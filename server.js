@@ -4,6 +4,8 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var session = require('express-session');
 var Mongostore = require('connect-mongo')(session);
+var http = require('http').Server(app);
+var socket = require('socket.io')(http);
 
 //connect to MongoDB
 mongoose.connect('mongodb://localhost:27017/testFor', { useMongoClient: true });
@@ -49,6 +51,10 @@ app.use(function (req, res, next) {
 app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.send(err.message);
+});
+
+socket.on('connection', () =>{
+    console.log('a user is connected');
 });
 
 app.listen(3000, function() {

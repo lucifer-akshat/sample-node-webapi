@@ -154,6 +154,8 @@ router.delete('/removeUser', registerController.removeUser);
 
 router.get('/loginUsers', registerController.fetchLoginUsers);
 
+router.post('/message', registerController.pushMessages);
+
 
 
 
