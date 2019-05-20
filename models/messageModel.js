@@ -1,11 +1,6 @@
 var mongoose = require('mongoose');
 
-var LoginSchema = new mongoose.Schema({
-    email: {
-        type: String,
-        required:true,
-        trim:true
-    },
+var MessageSchema = new mongoose.Schema({
     username: {
         type: String,
         required:true,
@@ -16,12 +11,13 @@ var LoginSchema = new mongoose.Schema({
         required:true,
         unique:true
     },
-    token: {
+    nessage: {
         type: String,
         required:true
     }
 
 });
 
-var LoginModel = mongoose.model('LoginModel', LoginSchema);
-module.exports = LoginModel;
+var MessageSchema = mongoose.model('messageModel', MessageSchema);
+module.exports = MessageSchema
+;

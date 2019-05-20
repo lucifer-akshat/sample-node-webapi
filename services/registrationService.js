@@ -4,6 +4,8 @@ var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 var config = require('../config/jwtSecret');
 var secret = config.secret;
+// var http = require('http').Server(app);
+// var socket = require('socket.io')(http);
 
 function verifyEmailUniqueness(user) {
     return new Promise(function (resolve, reject) {
@@ -44,6 +46,7 @@ function authenticateUser(request) {
 function registerUser(request) {
     var user = request.body;
     return new Promise(function (resolve, reject) {
+        console.log(user);
         if(!user.username || !user.email || !user.password) {
             return resolve({
                 message: "Unproccessible Entity",
@@ -173,27 +176,13 @@ function login(request) {
 }
 
 function createAuthenticatedWebToken(userDetails) {
-    return new Promise(function (resolve, reject) {
         var data = {};
         data.id = userDetails._id;
         data.username = userDetails.username;
         data.email = userDetails.email;
         data.token = createJsonWebToken(userDetails);
 
-        var loginUser = new LoginModel(data);
-
-        loginUser.save()
-            .then(function (result) {
-                return resolve({
-                    data: data
-                });
-            })
-            .catch(function (error) {
-                return reject({
-                    error:error
-                })
-            });
-    });
+        return data;
 }
 
 function createJsonWebToken(userDetails) {
@@ -254,10 +243,34 @@ function fetchAllLoginUsers(request) {
     })
 }
 
+function sendMessages(request) {
+    return new Promise(function (resolve , reject) {
+        authenticateUser(request)
+            .then(function () {
+                LoginModel.findOne({
+                    token: request.body.headers
+                })
+                    .then(function (response) {
+                        console.log(response);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    })
+
+                // var message = new Message(request.body);
+                // message.save()
+                //     .then(function (result) {
+                //
+                //     })
+            })
+    })    
+}
+
 module.exports = {
     registerUser,
     fetchRecords,
     login,
     removeUser,
-    fetchAllLoginUsers
+    fetchAllLoginUsers,
+    sendMessages
 };
