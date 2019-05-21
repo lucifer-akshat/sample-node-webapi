@@ -67,3 +67,25 @@ exports.pushMessages = function (req, res) {
           res.send(err)
       })
 };
+
+exports.logout = function (req, res) {
+    registrationService
+        .logoutUser(req)
+        .then(function (result) {
+            res.send(result);
+        })
+        .catch(function (err) {
+            res.send(err)
+        })
+};
+
+exports.getLoginDetails = function (req, res) {
+    registrationService
+        .getLoginDetailsUser(req)
+        .then(function (result) {
+            res.send(result);
+        })
+        .catch(function (err) {
+            res.send(err);
+        })
+};

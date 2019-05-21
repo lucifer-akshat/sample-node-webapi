@@ -1,6 +1,7 @@
 var User = require('../models/user');
 var LoginModel = require('../models/loginModel');
 var SignInModel = require('../models/signInModel');
+var LoginTimeModel = require('../models/loginTimeModel');
 var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 var config = require('../config/jwtSecret');
@@ -204,6 +205,19 @@ function createAuthenticatedWebToken(userDetails) {
                             message: "Not able to login."
                         })
                     })
+
+                var loginTimeDetails = {
+                    id: data.id,
+                    loginTime: new Date(new Date().toUTCString())
+                };
+                var loginTimeModelData = new LoginTimeModel(loginTimeDetails);
+                loginTimeModelData.save()
+                    .then(function (response) {
+                        console.log(response,'login time saved');
+                    })
+                    .catch(function () {
+                        console.log('Login time unable to save');
+                    })
             })
             .catch(function (error) {
                 return ;
@@ -322,6 +336,55 @@ function sendMessages(request) {
     })    
 }
 
+function logoutUser(request) {
+    return new Promise(function (resolve, reject) {
+        authenticateUser(request)
+            .then(function () {
+                SignInModel.deleteOne({
+                    id: request.id
+                })
+                    .then(function (response) {
+                        return resolve({
+                            data: response
+                        })
+                    })
+                    .catch(function (error) {
+                        return reject({
+                            error: error,
+                            message: "Unable to logout the user."
+                        })
+                    })
+            })
+            .catch(function (err) {
+                return reject({
+                    error: err,
+                    message: "Unable to logout the user."
+                })
+            })
+    })
+}
+
+function getLoginDetailsUser(request) {
+    return new Promise(function (resolve, reject) {
+        authenticateUser(request)
+            .then(function () {
+                LoginTimeModel.find({id: request.query.id})
+                    .then(function (response) {
+                        return resolve({
+                            data: response,
+                            message: "Login details fetched successfully"
+                        })
+                    })
+                    .catch(function (err) {
+                        return reject({
+                            error: err,
+                            message: "Unable to fetch login details."
+                        })
+                    })
+            })
+    })
+}
+
 module.exports = {
     registerUser,
     fetchRecords,
@@ -329,5 +392,6 @@ module.exports = {
     removeUser,
     fetchAllLoginUsers,
     sendMessages,
-    checkForAlreadyLogged
+    logoutUser,
+    getLoginDetailsUser
 };
