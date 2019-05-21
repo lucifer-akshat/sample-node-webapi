@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fa60df16-a79d-41b4-9366-c05a2e2c6ec9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/models/signInModel.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/registrationService.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/registrationService.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -83,12 +81,12 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="gitignore" value="15" />
-          <entry key="js" value="11365" />
+          <entry key="js" value="11974" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JavaScript" value="11365" />
+          <entry key="JavaScript" value="11974" />
           <entry key="PLAIN_TEXT" value="15" />
         </counts>
       </usages-collector>
@@ -138,8 +136,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/services/registrationService.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="553">
-              <caret line="202" column="33" lean-forward="true" selection-start-line="202" selection-start-column="33" selection-end-line="202" selection-end-column="33" />
+            <state relative-caret-position="468">
+              <caret line="199" column="38" lean-forward="true" selection-start-line="199" selection-start-column="38" selection-end-line="199" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -301,12 +299,12 @@
       <workItem from="1555662699676" duration="1611000" />
       <workItem from="1558084017122" duration="677000" />
       <workItem from="1558097414663" duration="6273000" />
-      <workItem from="1558416237782" duration="6349000" />
+      <workItem from="1558416237782" duration="8712000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="104574000" />
+    <option name="totallyTimeSpent" value="106937000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1928" y="-173" width="1936" height="1056" extended-state="6" />
@@ -442,8 +440,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/services/registrationService.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="553">
-          <caret line="202" column="33" lean-forward="true" selection-start-line="202" selection-start-column="33" selection-end-line="202" selection-end-column="33" />
+        <state relative-caret-position="468">
+          <caret line="199" column="38" lean-forward="true" selection-start-line="199" selection-start-column="38" selection-end-line="199" selection-end-column="38" />
         </state>
       </provider>
     </entry>

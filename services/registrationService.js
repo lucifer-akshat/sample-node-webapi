@@ -178,33 +178,67 @@ function login(request) {
 
 function createAuthenticatedWebToken(userDetails) {
     return new Promise(function (resolve, reject) {
-        var data = {};
-        data.id = userDetails._id;
-        data.username = userDetails.username;
-        data.email = userDetails.email;
-        data.token = createJsonWebToken(userDetails);
 
-        //TODO: Add Logic to remove token for
-        //TODO: logged-in user in case of login
-
-        var loginDataDetails = {
-            id: data.id,
-            token: data.token
-        };
-        var signInModelData = new SignInModel(loginDataDetails);
-        signInModelData.save()
+        checkForAlreadyLogged(userDetails)
             .then(function () {
-                return resolve({
-                    data: data
-                })
+                var data = {};
+                data.id = userDetails._id;
+                data.username = userDetails.username;
+                data.email = userDetails.email;
+                data.token = createJsonWebToken(userDetails);
+
+                var loginDataDetails = {
+                    id: data.id,
+                    token: data.token
+                };
+                var signInModelData = new SignInModel(loginDataDetails);
+                signInModelData.save()
+                    .then(function () {
+                        return resolve({
+                            data: data
+                        })
+                    })
+                    .catch(function (error) {
+                        return reject({
+                            error: error,
+                            message: "Not able to login."
+                        })
+                    })
             })
             .catch(function (error) {
-                return reject({
+                return ;
+            });
+    });
+}
+
+function checkForAlreadyLogged(requestDetails) {
+    return new Promise(function (resolve, reject) {
+        SignInModel.findOne({id: requestDetails.id})
+            .then(function (response) {
+                if(response){
+                    SignInModel.deleteOne({id: response.id})
+                        .then(function () {
+                            return resolve();
+                        })
+                        .catch(function (error) {
+                            return reject({
+                                error: error,
+                                message: "Unable to logout from previous session."
+                            })
+                        })
+                } else {
+                    return resolve();
+                }
+
+            })
+            .catch(function (error) {
+                return resolve({
                     error: error,
-                    message: "Not able to login."
+                    message: "Unable to search user in previous sessions."
                 })
             })
-    });
+
+    })
 }
 
 function createJsonWebToken(userDetails) {
@@ -294,5 +328,6 @@ module.exports = {
     login,
     removeUser,
     fetchAllLoginUsers,
-    sendMessages
+    sendMessages,
+    checkForAlreadyLogged
 };
