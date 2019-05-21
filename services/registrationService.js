@@ -1,5 +1,6 @@
 var User = require('../models/user');
 var LoginModel = require('../models/loginModel');
+var SignInModel = require('../models/signInModel');
 var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 var config = require('../config/jwtSecret');
@@ -176,13 +177,68 @@ function login(request) {
 }
 
 function createAuthenticatedWebToken(userDetails) {
-        var data = {};
-        data.id = userDetails._id;
-        data.username = userDetails.username;
-        data.email = userDetails.email;
-        data.token = createJsonWebToken(userDetails);
+    return new Promise(function (resolve, reject) {
 
-        return data;
+        checkForAlreadyLogged(userDetails)
+            .then(function () {
+                var data = {};
+                data.id = userDetails._id;
+                data.username = userDetails.username;
+                data.email = userDetails.email;
+                data.token = createJsonWebToken(userDetails);
+
+                var loginDataDetails = {
+                    id: data.id,
+                    token: data.token
+                };
+                var signInModelData = new SignInModel(loginDataDetails);
+                signInModelData.save()
+                    .then(function () {
+                        return resolve({
+                            data: data
+                        })
+                    })
+                    .catch(function (error) {
+                        return reject({
+                            error: error,
+                            message: "Not able to login."
+                        })
+                    })
+            })
+            .catch(function (error) {
+                return ;
+            });
+    });
+}
+
+function checkForAlreadyLogged(requestDetails) {
+    return new Promise(function (resolve, reject) {
+        SignInModel.findOne({id: requestDetails.id})
+            .then(function (response) {
+                if(response){
+                    SignInModel.deleteOne({id: response.id})
+                        .then(function () {
+                            return resolve();
+                        })
+                        .catch(function (error) {
+                            return reject({
+                                error: error,
+                                message: "Unable to logout from previous session."
+                            })
+                        })
+                } else {
+                    return resolve();
+                }
+
+            })
+            .catch(function (error) {
+                return resolve({
+                    error: error,
+                    message: "Unable to search user in previous sessions."
+                })
+            })
+
+    })
 }
 
 function createJsonWebToken(userDetails) {
@@ -194,7 +250,7 @@ function createJsonWebToken(userDetails) {
         userInfo: userDetails._id
     };
 
-    return jwt.sign(payload, secret, options);
+    return jwt.sign(payload, secret, options)
 }
 
 function removeUser(deleteUsername) {
@@ -272,5 +328,6 @@ module.exports = {
     login,
     removeUser,
     fetchAllLoginUsers,
-    sendMessages
+    sendMessages,
+    checkForAlreadyLogged
 };
