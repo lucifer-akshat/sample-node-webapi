@@ -1,22 +1,19 @@
 var express = require('express');
+var cors = require('cors');
 var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var session = require('express-session');
 var Mongostore = require('connect-mongo')(session);
 var http = require('http').Server(app);
-var socket = require('socket.io')(http);
+var io = require('socket.io')(http);
 
 //connect to MongoDB
 mongoose.connect('mongodb://localhost:27017/testFor', { useMongoClient: true });
 var db = mongoose.connection;
 
+app.use(cors())
 
-//handle mongo error
-// db.on('error', console.error.bind(console, 'connection error:'));
-// db.once('openUri', function () {
-//     console.info('we are connected');
-// });
 
 //use sessions for tracking logins
 app.use(session({
@@ -53,7 +50,7 @@ app.use(function (err, req, res, next) {
     res.send(err.message);
 });
 
-socket.on('connection', () =>{
+io.on('connection', () =>{
     console.log('a user is connected');
 });
 
