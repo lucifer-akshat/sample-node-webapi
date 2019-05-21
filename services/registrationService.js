@@ -1,5 +1,6 @@
 var User = require('../models/user');
 var LoginModel = require('../models/loginModel');
+var SignInModel = require('../models/signInModel');
 var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 var config = require('../config/jwtSecret');
@@ -176,13 +177,34 @@ function login(request) {
 }
 
 function createAuthenticatedWebToken(userDetails) {
+    return new Promise(function (resolve, reject) {
         var data = {};
         data.id = userDetails._id;
         data.username = userDetails.username;
         data.email = userDetails.email;
         data.token = createJsonWebToken(userDetails);
 
-        return data;
+        //TODO: Add Logic to remove token for
+        //TODO: logged-in user in case of login
+
+        var loginDataDetails = {
+            id: data.id,
+            token: data.token
+        };
+        var signInModelData = new SignInModel(loginDataDetails);
+        signInModelData.save()
+            .then(function () {
+                return resolve({
+                    data: data
+                })
+            })
+            .catch(function (error) {
+                return reject({
+                    error: error,
+                    message: "Not able to login."
+                })
+            })
+    });
 }
 
 function createJsonWebToken(userDetails) {
@@ -194,7 +216,7 @@ function createJsonWebToken(userDetails) {
         userInfo: userDetails._id
     };
 
-    return jwt.sign(payload, secret, options);
+    return jwt.sign(payload, secret, options)
 }
 
 function removeUser(deleteUsername) {
