@@ -156,6 +156,10 @@ router.get('/loginUsers', registerController.fetchLoginUsers);
 
 router.post('/message', registerController.pushMessages);
 
+router.post('/logout', registerController.logout);
+
+router.get('/getLoginDetails', registerController.getLoginDetails);
+
 
 
 
