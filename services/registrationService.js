@@ -204,7 +204,7 @@ function createAuthenticatedWebToken(userDetails) {
                             error: error,
                             message: "Not able to login."
                         })
-                    })
+                    });
 
                 var loginTimeDetails = {
                     id: data.id,
