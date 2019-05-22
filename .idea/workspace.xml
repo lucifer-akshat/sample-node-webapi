@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fa60df16-a79d-41b4-9366-c05a2e2c6ec9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/models/loginTimeModel.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/registrationController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/registrationController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/router.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/registrationService.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/registrationService.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -57,7 +54,8 @@
     <session id="1096173276">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="6" />
+          <entry key="project.closed" value="9" />
+          <entry key="project.open.time.0" value="2" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.2" value="4" />
           <entry key="project.open.time.22" value="1" />
@@ -65,7 +63,7 @@
           <entry key="project.open.time.6" value="1" />
           <entry key="project.open.time.79" value="1" />
           <entry key="project.open.time.9" value="2" />
-          <entry key="project.opened" value="11" />
+          <entry key="project.opened" value="13" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -85,12 +83,12 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="gitignore" value="15" />
-          <entry key="js" value="13402" />
+          <entry key="js" value="13403" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JavaScript" value="13402" />
+          <entry key="JavaScript" value="13403" />
           <entry key="PLAIN_TEXT" value="15" />
         </counts>
       </usages-collector>
@@ -101,8 +99,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/router.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="10">
-              <caret line="118" column="21" lean-forward="true" selection-start-line="117" selection-start-column="45" selection-end-line="118" selection-end-column="21" />
+            <state relative-caret-position="2006">
+              <caret line="118" column="21" selection-start-line="117" selection-start-column="45" selection-end-line="118" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -110,7 +108,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controllers/registrationController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="653">
+            <state relative-caret-position="1411">
               <caret line="83" column="28" selection-start-line="83" selection-start-column="9" selection-end-line="83" selection-end-column="28" />
             </state>
           </provider>
@@ -119,8 +117,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/services/registrationService.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="368" column="33" lean-forward="true" selection-start-line="368" selection-start-column="33" selection-end-line="368" selection-end-column="33" />
+            <state relative-caret-position="682">
+              <caret line="214" column="47" selection-start-line="214" selection-start-column="47" selection-end-line="214" selection-end-column="47" />
             </state>
           </provider>
         </entry>
@@ -217,6 +215,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -238,7 +237,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -283,16 +281,17 @@
       <workItem from="1555662699676" duration="1611000" />
       <workItem from="1558084017122" duration="677000" />
       <workItem from="1558097414663" duration="6273000" />
-      <workItem from="1558416237782" duration="14263000" />
+      <workItem from="1558416237782" duration="15841000" />
+      <workItem from="1558518115249" duration="270000" />
+      <workItem from="1558518926378" duration="602000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="112488000" />
+    <option name="totallyTimeSpent" value="114938000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1928" y="-173" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1264489" />
       <window_info id="npm" order="1" side_tool="true" />
@@ -401,13 +400,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/router.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="10">
-          <caret line="118" column="21" lean-forward="true" selection-start-line="117" selection-start-column="45" selection-end-line="118" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/models/signInModel.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -415,9 +407,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/routes/router.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2006">
+          <caret line="118" column="21" selection-start-line="117" selection-start-column="45" selection-end-line="118" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/controllers/registrationController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="653">
+        <state relative-caret-position="1411">
           <caret line="83" column="28" selection-start-line="83" selection-start-column="9" selection-end-line="83" selection-end-column="28" />
         </state>
       </provider>
@@ -431,8 +430,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/services/registrationService.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="368" column="33" lean-forward="true" selection-start-line="368" selection-start-column="33" selection-end-line="368" selection-end-column="33" />
+        <state relative-caret-position="682">
+          <caret line="214" column="47" selection-start-line="214" selection-start-column="47" selection-end-line="214" selection-end-column="47" />
         </state>
       </provider>
     </entry>
