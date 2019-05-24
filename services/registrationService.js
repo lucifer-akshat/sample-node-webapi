@@ -72,7 +72,6 @@ function registerUser(request) {
                         console.log(data);
                         return resolve({
                             message:"Registration successful",
-                            data:data,
                             code:200
                         })
                     })
