@@ -63,7 +63,7 @@ exports.pushMessages = function (req, res) {
       .then(function (result) {
           res.send(result);
       })
-      . catch(function (err) {
+      .catch(function (err) {
           res.send(err)
       })
 };
